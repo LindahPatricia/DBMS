@@ -1,90 +1,134 @@
+/* Overall body styles */
 .body {
-  background: #393939;
-  color: white;
-  font: 14px Helvetica, sans-serif;
+  background: #393939; /* Dark background */
+  color: white; /* White text color */
+  font: 14px Helvetica, sans-serif; /* Font styles */
 }
 
-p{
-  margin-left: 23%;
+/* Paragraph styles */
+p {
+  margin-left: 23%; /* Left margin for paragraphs */
 }
 
-table{
-  margin: auto;
+/* Table styling */
+table {
+  margin: auto; /* Center table */
+  width: 100%; /* Full width */
+  border-collapse: collapse; /* Remove gaps between cells */
 }
 
-img{
-  width: 20%;
-  align-self: center;
+/* Table image */
+img {
+  width: 20%; /* Responsive image size */
+  align-self: center; /* Center alignment */
 }
 
-.align-contents{
-  background-color: #393939;
-  width: 100%;
+/* Align contents class for full-width background */
+.align-contents {
+  background-color: #393939; /* Dark background for alignment */
+  width: 100%; /* Full width */
 }
 
-
-td{
-  border-top: 0px;
-  color: #FFFFFF;
-}
-font{
-  color: #FFFFFF;
-  font-size: 4vw;
-}
-.welcome{
-  color: white;
+/* Table cell styling */
+td {
+  border-top: 0; /* No border on top */
+  color: #FFFFFF; /* White text color */
 }
 
+/* Font styling */
+font {
+  color: #FFFFFF; /* White font color */
+  font-size: 4vw; /* Responsive font size */
+}
+
+/* Welcome message styling */
+.welcome {
+  color: white; /* White text color */
+}
+
+/* Label styles for forms */
 label {
-  font: bold 20px Helvetica, sans-serif;
-  display: block;
-  float: left;
-  text-align: right;
-  padding: 5px 10px 0 0;
-  width: 140px;
+  font: bold 20px Helvetica, sans-serif; /* Bold font for labels */
+  display: block; /* Block display */
+  float: left; /* Float left */
+  text-align: right; /* Right alignment */
+  padding: 5px 10px 0 0; /* Padding for labels */
+  width: 140px; /* Fixed width */
 }
 
+/* Form div styles */
 form div {
-  overflow: hidden;
-  margin: 0 0 5px 0;
+  overflow: hidden; /* Clear floats */
+  margin: 0 0 5px 0; /* Margin for spacing */
 }
 
-
+/* Button styles */
 .bigbutton {
-  border-radius: 4px;
-  background-color: #f4511e;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 15px;
-  padding: 20px;
-  width: 120px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f4511e; /* Button color */
+  border: none; /* No border */
+  color: #FFFFFF; /* White text color */
+  text-align: center; /* Center text alignment */
+  font-size: 15px; /* Font size */
+  padding: 10px 20px; /* Padding for buttons */
+  width: 120px; /* Fixed width */
+  transition: all 0.5s; /* Transition effects */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin: 5px; /* Margin for spacing */
 }
 
+/* Button span styles */
 .bigbutton span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
+  cursor: pointer; /* Pointer cursor */
+  display: inline-block; /* Inline block for span */
+  position: relative; /* Relative positioning */
+  transition: 0.5s; /* Transition effects */
+}
+
+/* Button hover effects */
+.bigbutton:hover {
+  background-color: #d44000; /* Darken background on hover */
 }
 
 .bigbutton span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+  content: '\00bb'; /* Arrow icon */
+  position: absolute; /* Absolute positioning */
+  opacity: 0; /* Initial opacity */
+  top: 0; /* Align to top */
+  right: -20px; /* Initial right offset */
+  transition: 0.5s; /* Transition effects */
 }
 
+/* Span hover effects */
 .bigbutton:hover span {
-  padding-right: 25px;
+  padding-right: 25px; /* Padding on hover */
 }
 
 .bigbutton:hover span:after {
-  opacity: 1;
-  right: 0;
+  opacity: 1; /* Show arrow on hover */
+  right: 0; /* Reset right offset */
+}
+
+/* Card styles */
+.card {
+  margin: 20px auto; /* Center card with margin */
+  max-width: 600px; /* Maximum width */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Hide overflow */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  background-color: #393939; /* Card background */
+}
+
+/* Card header styles */
+.card-header {
+  background-color: #ff9800; /* Header background */
+  color: white; /* White text color */
+  padding: 15px; /* Padding */
+  font-size: 24px; /* Font size */
+}
+
+/* Table header styles */
+.table th {
+  background-color: #f1f1f1; /* Light background for headers */
+  color: #393939; /* Dark text for contrast */
 }
