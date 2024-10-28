@@ -3,10 +3,14 @@ import axios from 'axios';
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const token = localStorage.getItem('token');
+  const [activeLink, setActiveLink] = useState('/dashboard');
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const res = await axios.get('http://localhost:5000/api/dashboard', {
           headers: { Authorization: `Bearer ${token}` },
@@ -14,137 +18,59 @@ const Dashboard = () => {
         setData(res.data);
       } catch (error) {
         console.error('Error fetching data', error);
+        setError('Failed to load data. Please try again later.');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [token]);
 
-  const dashboardStyle = {
-    display: 'flex',
-    height: '100vh',
-    backgroundColor: '#f0f8ff',
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+    }
   };
 
-  const sidebarStyle = {
-    width: '250px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    padding: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-  };
+  const userName = localStorage.getItem('userName') || 'User';
 
-  const navLinkStyle = {
-    color: 'white',
-    textDecoration: 'none',
-    padding: '10px 15px',
-    margin: '5px 0',
-    borderRadius: '5px',
-    transition: 'background-color 0.3s',
-  };
-
-  const navLinkHoverStyle = {
-    backgroundColor: '#45a049',
-  };
-
-  const headerStyle = {
-    flex: '1',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '20px',
-    backgroundColor: '#fff',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-  };
-
-  const titleStyle = {
-    fontSize: '24px',
-    fontWeight: 'bold',
-  };
-
-  const userSectionStyle = {
-    display: 'flex',
-    alignItems: 'center',
-  };
-
-  const logoutButtonStyle = {
-    marginLeft: '20px',
-    padding: '10px 15px',
-    backgroundColor: '#d9534f',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  };
-
-  const contentStyle = {
-    flex: '3',
-    padding: '20px',
-    overflowY: 'auto',
-  };
-
-  const cardStyle = {
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    padding: '20px',
-    margin: '20px 0',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-  };
-
-  const overviewStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-  };
-
-  const metricStyle = {
-    flex: '1',
-    margin: '0 10px',
-    textAlign: 'center',
-  };
-
-  const chartStyle = {
-    height: '200px',
-    backgroundColor: '#e7f1ff',
-    borderRadius: '8px',
-    margin: '20px 0',
-  };
+  // Styles...
 
   return (
     <div style={dashboardStyle}>
       <div style={sidebarStyle}>
         <h2>Driver Monitoring</h2>
-        <a href="/dashboard" style={navLinkStyle}>Dashboard</a>
-        <a href="/drivers" style={navLinkStyle}>Driver Profiles</a>
-        <a href="/analytics" style={navLinkStyle}>Trip Analytics</a>
-        <a href="/alerts" style={navLinkStyle}>Safety Alerts</a>
-        <a href="/settings" style={navLinkStyle}>Settings</a>
-        <button style={logoutButtonStyle} onClick={() => {
-          localStorage.removeItem('token');
-          window.location.href = '/login';
-        }}>Logout</button>
+        <a href="/dashboard" style={activeLink === '/dashboard' ? navLinkActiveStyle : navLinkStyle} onClick={() => setActiveLink('/dashboard')}>Dashboard</a>
+        <a href="/drivers" style={activeLink === '/drivers' ? navLinkActiveStyle : navLinkStyle} onClick={() => setActiveLink('/drivers')}>Driver Profiles</a>
+        <a href="/analytics" style={activeLink === '/analytics' ? navLinkActiveStyle : navLinkStyle} onClick={() => setActiveLink('/analytics')}>Trip Analytics</a>
+        <a href="/alerts" style={activeLink === '/alerts' ? navLinkActiveStyle : navLinkStyle} onClick={() => setActiveLink('/alerts')}>Safety Alerts</a>
+        <a href="/settings" style={activeLink === '/settings' ? navLinkActiveStyle : navLinkStyle} onClick={() => setActiveLink('/settings')}>Settings</a>
+        <button style={logoutButtonStyle} onClick={handleLogout}>Logout</button>
       </div>
       <div style={contentStyle}>
         <div style={headerStyle}>
           <div style={titleStyle}>Driver Behavior Monitoring Dashboard</div>
           <div style={userSectionStyle}>
-            <span>Welcome, User</span>
+            <span>Welcome, {userName}</span>
           </div>
         </div>
         <div style={cardStyle}>
           <h3>Overview</h3>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
           <div style={overviewStyle}>
             <div style={metricStyle}>
               <h4>Total Trips</h4>
-              <p>{data ? data.totalTrips : 'Loading...'}</p>
+              <p>{loading ? 'Loading...' : data.totalTrips}</p>
             </div>
             <div style={metricStyle}>
               <h4>Safe Driving %</h4>
-              <p>{data ? `${data.safeDrivingPercentage}%` : 'Loading...'}</p>
+              <p>{loading ? 'Loading...' : `${data.safeDrivingPercentage}%`}</p>
             </div>
             <div style={metricStyle}>
               <h4>Average Score</h4>
-              <p>{data ? data.averageScore : 'Loading...'}</p>
+              <p>{loading ? 'Loading...' : data.averageScore}</p>
             </div>
           </div>
         </div>
